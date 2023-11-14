@@ -1,12 +1,20 @@
 import java.util.Random;
 import java.util.Scanner;
 
-//Klasse machen und Figur Speichern überprüdeun ob beiden gewonnen hat Spielerklasse 
+/**
+ * TicTacToe class represents a simple Tic Tac Toe game. The game is played on a
+ * 3x3 grid, where players take turns placing their markers (O and X).
+ */
 public class TicTacToe {
-	private char[] brett; // Das Spielfeld
+	private char[] brett; // The game board, represented as an array of chars.
+
+	/**
+	 * Constructor initializes the game board with spaces. The board is a 1D array
+	 * but represents a 3x3 grid.
+	 */
 
 	public TicTacToe() {
-		// Initialisiere das Spielfeld mit Leerzeichen
+		// Initialize the game board with spaces
 		brett = new char[9];
 		for (int i = 0; i < 9; i++) {
 			brett[i] = ' ';
@@ -16,16 +24,16 @@ public class TicTacToe {
 	}
 
 	public void printBoard() {
-		// Ausgabe des Spielfelds
+		// Display the game board
 		for (int i = 0; i < 9; i++) {
 			System.out.print("[" + brett[i] + "]");
 			if ((i + 1) % 3 == 0) {
-				System.out.println(); // Neue Zeile nach jedem dritten Element
+				System.out.println(); // New line after every third element
 			}
 		}
 	}
 
-	public void placeO(int position) { // Place O bzw das bin ich
+	public void placeO(int position) { // Place O, that's me
 		if (position >= 0 && position < 9 && brett[position] == ' ') {
 			brett[position] = 'O';
 		} else {
@@ -33,9 +41,10 @@ public class TicTacToe {
 		}
 	}
 
-	public void placeRandomX() { // Random X
+	public void placeRandomX() { // Place a random X
 		Random random = new Random();
 		int emptySpots = 0;
+		// Count the number of empty spots on the board.
 
 		for (int i = 0; i < 9; i++) {
 			if (brett[i] == ' ') {
@@ -60,32 +69,32 @@ public class TicTacToe {
 	}
 
 	public boolean checkWinner(char player) {
-		// Überprüfung auf Gewinner in Zeilen, Spalten und Diagonalen
+		// Check for a winner in rows, columns, and diagonals
 		for (int i = 0; i < 3; i++) {
-			// Überprüfung auf Zeilen
+			// Check rows
 			if (brett[i * 3] == player && brett[i * 3 + 1] == player && brett[i * 3 + 2] == player) {
 				return true;
 			}
 
-			// Überprüfung auf Spalten
+			// Check columns
 			if (brett[i] == player && brett[i + 3] == player && brett[i + 6] == player) {
 				return true;
 			}
 		}
 
-		// Überprüfung auf Diagonalen
+		// Check diagonals
 		if (brett[0] == player && brett[4] == player && brett[8] == player) {
-			return true; // Diagonale (von links oben nach rechts unten)
+			return true; // Diagonal (from top left to bottom right)
 		}
 		if (brett[2] == player && brett[4] == player && brett[6] == player) {
-			return true; // Diagonale (von rechts oben nach links unten)
+			return true; // Diagonal (from top right to bottom left)
 		}
 
 		return false;
 	}
 
 	public boolean isBoardFull() {
-		// Überprüfung, ob das Spielfeld voll ist
+		// Check if the board is full
 		for (int i = 0; i < 9; i++) {
 			if (brett[i] == ' ') {
 				return false;
@@ -101,7 +110,7 @@ public class TicTacToe {
 		while (true) {
 			game.printBoard();
 			System.out.println();
-			System.out.println("Ihr Zug (Position 1-9): ");
+			System.out.println("Your move (positions 1-9): ");
 			int position = scanner.nextInt();
 			game.placeO(position - 1);
 
@@ -113,7 +122,7 @@ public class TicTacToe {
 
 			if (game.isBoardFull()) {
 				game.printBoard();
-				System.out.println("Unentschiedenฅ^._.^ฅ!");
+				System.out.println("drawฅ^._.^ฅ!");
 				break;
 			}
 
